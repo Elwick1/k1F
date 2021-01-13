@@ -1,25 +1,33 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
-function App() {
+const users = 'http://localhost:3000/users'
+
+
+
+export default class App extends React.Component {
+
+  state = {
+    users : []
+  }
+
+  componentDidMount() {
+    fetch(users)
+    .then(res => res.json())
+    .then(users => this.setState({
+      users : users
+    }))
+  }
+
+  render () {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div>{console.log(this.state.users)}</div>
   );
-}
+}}
 
-export default App;
